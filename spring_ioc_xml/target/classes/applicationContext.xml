@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="studentOne" class="com.pengyiming.spring.pojo.Student"></bean>
+<!--    如果两个相同类，在获取bean时根据类型获取会报错-->
+    <bean id="studentTwo" class="com.pengyiming.spring.pojo.Student">
+<!--        prooerty 通过成员变量的set方法赋值-->
+<!--        name: 设置需要赋值的属性名（跟set方法有关）-->
+<!--        value: 设置为属性所赋的值-->
+        <property name="sid" value="1001"></property>
+        <property name="sname" value="张三"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="男"></property>
+    </bean>
+    <bean id="studentThree" class="com.pengyiming.spring.pojo.Student">
+        <constructor-arg value="10002"></constructor-arg>
+        <constructor-arg value="李四"></constructor-arg>
+
+        <constructor-arg value="女"></constructor-arg>
+<!--        如果无法确定哪个变量，需要用name-->
+        <constructor-arg value="24" name="age"></constructor-arg>
+    </bean>
+<!--    value里不能写null,写null代表“null”字符串-->
+    <bean id="studentFour" class="com.pengyiming.spring.pojo.Student">
+        <property name="sid" value="1003"></property>
+        <property name="sname" value="王五"></property>
+        <property name="gender">
+        <null />
+        </property>
+    </bean>
+<!--引用类类型-->
+    <bean id="studentFive" class="com.pengyiming.spring.pojo.Student">
+        <property name="sid" value="10004"></property>
+        <property name="sname" value="赵六"></property>
+        <property name="age" value="25"></property>
+        <property name="gender" value="男"></property>
+<!--        ref引用IOC容器中的bean的id，引用外部bean-->
+<!--        <property name="clazz" ref="ClazzOne"></property>-->
+<!--        级联的方式，要提前为clazz赋值或者实例化-->
+<!--        <property name="clazz" ref="ClazzOne"></property>-->
+<!--        <property name="clazz.cid" value="2222"></property>-->
+<!--        <property name="clazz.cname" value="远大前程班"></property>-->
+<!--        引用内部bean,在property标签中写bean标签-->
+        <property name="clazz">
+<!--            内部bean只能在当前bean的内部使用，不能被ioc容器直接获取-->
+            <bean id="clazzInner" class="com.pengyiming.spring.pojo.Clazz">
+                    <property name="cid" value="2222"></property>
+                    <property name="cname" value="远大前程班"></property>
+            </bean>
+        </property>
+        <!--    为数组类型赋值-->
+        <property name="hobby">
+<!--            如果数组里是字面量，用value标签；如果数组里是类类型，用ref标签-->
+            <array>
+                <value>抽烟</value>
+                <value>喝酒</value>
+                <value>烫头</value>
+            </array>
+<!--            <array>-->
+<!--                <ref bean=""-->
+<!--                -->
+<!--            </array>-->
+        </property>
+<!--        map键值对-->
+<!--        <property name="teacherMap">-->
+<!--            <map>-->
+<!--                <entry key="10086" value-ref="teacherOne"></entry>-->
+<!--                <entry key="10066" value-ref="teacherTwo"></entry>-->
+<!--            </map>-->
+<!--        </property>-->
+    </bean>
+    <util:map id="teacherMap">
+        <entry key="10086" value-ref="teacherOne"></entry>
+        <entry key="10066" value-ref="teacherTwo"></entry>
+    </util:map>
+    <bean id="clazzOne" class="com.pengyiming.spring.pojo.Clazz">
+        <property name="cid" value="111"></property>
+        <property name="cname" value="最强王者班"></property>
+<!--        list类型-->
+<!--        <property name="students" >-->
+<!--&lt;!&ndash;            使用list标签&ndash;&gt;-->
+<!--            <list>-->
+<!--    &lt;!&ndash;                也有value和ref的区别&ndash;&gt;-->
+<!--                <ref bean="studentOne"></ref>-->
+<!--                <ref bean="studentTwo"></ref>-->
+<!--                <ref bean="studentThree"></ref>-->
+<!--            </list>-->
+        <property name="students" ref="studentList"></property>
+<!--        </property>-->
+    </bean>
+
+<!--list 使用内部bean-->
+<!--    配置集合类型的bean,使用util约束-->
+    <util:list id="studentList">
+        <ref bean="studentOne"></ref>
+        <ref bean="studentTwo"></ref>
+        <ref bean="studentThree"></ref>
+    </util:list>
+
+    <bean id="teacherOne" class="com.pengyiming.spring.pojo.Teacher">
+        <property name="tid" value="10086"></property>
+        <property name="tname" value="大宝"></property>
+    </bean>
+    <bean id="teacherTwo" class="com.pengyiming.spring.pojo.Teacher">
+        <property name="tid" value="10066"></property>
+        <property name="tname" value="小宝"></property>
+    </bean>
+
+<!--    p命名空间-->
+    <bean id="studentSix" class="com.pengyiming.spring.pojo.Student"
+          p:sid="1005" p:sname="小明" p:teacherMap-ref="teacherMap">
+
+    </bean>
+
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--    扫描组件-->
+    <context:component-scan base-package="com.pengyiming.spring">
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 排除扫描某组件-->
+<!--        <context:exclude-filter type="assignable" expression="com.pengyiming.spring.controller.UserController"/>-->
+<!--        <context:include-filter type="" expression=""/>-->
+    </context:component-scan>
+
+    <bean id="userService" class="com.pengyiming.spring.service.Impl.UserServiceImpl"></bean>
+    <bean id="userDao" class="com.pengyiming.spring.dao.Impl.UserDaoImpl"></bean>
+</beans>

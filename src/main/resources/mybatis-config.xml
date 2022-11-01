@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+<!--    typeAliases 设置别名-->
+<!--        <typeAlias type="com.test.Mybatis.pojo.User" alias="User"></typeAlias>-->
+<!--        不设置alias是默认的取类名，使用中不区分大小写-->
+        <typeAlias type="com.test.Mybatis.pojo.User"></typeAlias>
+    </typeAliases>
+    <!--设置连接数据库的环境-->
+<!--    default 默认启动环境-->
+<!--    environment配置连接数据库环境-->
+    <environments default="development">
+        <environment id="development">
+<!--            事务管理器-->
+<!--            type 设置事务管理类型 JDBC/MANAGED-->
+<!--            JDBC 原生事务管理-->
+<!--            MANAGED 例如交给spring管理-->
+            <transactionManager type="JDBC"/>
+<!--            数据源-->
+<!--            type 设置数据源类型-->
+<!--            POOLED 使用数据库连接池 -->
+<!--            UNPOOLED 不使用数据库连接池-->
+<!--            JNDI 表示使用上下文中的数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mysql_db?
+serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--引入映射文件-->
+    <mappers>
+<!--        <mapper class="com.test.Mybatis.mappers.UserMapper"/>-->
+<!--        <package name="com.test.Mybatis.mappers.UserMapper"/>-->
+        <mapper resource="com/test/Mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="com/test/Mybatis/mappers/SelectMapper.xml"/>
+    </mappers>
+</configuration>

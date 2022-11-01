@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--交给ioc管理依赖注入-->
+<!--    -->
+    <bean id="userController" class="com.pengyiming.spring.controller.UserController" autowire="byName">
+<!--        <property name="userService" ref="userService"></property>-->
+
+    </bean>
+
+    <bean id="userService" class="com.pengyiming.spring.service.Impl.UserServiceImpl" autowire="byName"></bean>
+    <bean id="Service" class="com.pengyiming.spring.service.Impl.UserServiceImpl" autowire="byName">
+<!--        <property name="userDao" ref="userDao"></property>-->
+    </bean>
+
+    <bean id="userDao" class="com.pengyiming.spring.dao.Impl.UserDaoImpl"></bean>
+    <bean id="Dao" class="com.pengyiming.spring.dao.Impl.UserDaoImpl"></bean>
+</beans>

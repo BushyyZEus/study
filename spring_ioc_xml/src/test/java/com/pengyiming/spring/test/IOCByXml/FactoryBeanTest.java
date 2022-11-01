@@ -1,0 +1,17 @@
+package com.pengyiming.spring.test.IOCByXml;
+
+import com.pengyiming.spring.pojo.User;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class FactoryBeanTest {
+
+    @Test
+    public void testFactoryBean(){
+        ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-factory.xml");
+//        不需要配置user类型的bean，这就是factoryBean
+        User user = ioc.getBean(User.class);
+        System.out.println(user);
+    }
+}
