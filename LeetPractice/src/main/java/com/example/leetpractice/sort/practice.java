@@ -11,54 +11,36 @@ import java.util.List;
 import java.util.Queue;
 
 public class practice {
-    public List<List<Integer>> levelSort(TreeNode root){
-        List<List<Integer>> ret = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        if(root == null){
-            return ret;
-        }
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            List<Integer> levelList = new ArrayList<>();
-            int currentSize = queue.size();
+    public static void main(String[] args) {
+        int[] arr = {4,2,1,5,9};
+        quickSort(arr, 0, arr.length-1);
+        System.out.print(Arrays.toString(arr));
+    }
 
-            for (int i = 0; i < currentSize; i++) {
-                TreeNode tree = queue.poll();
-                levelList.add(tree.val);
-                if(tree.left != null){
-                    queue.offer(tree.left);
-                }
-                if(tree.right != null){
-                    queue.offer(tree.left);
-                }
-            }
-            ret.add(levelList);
+    public static void quickSort(int[] arr,int start,int end){
+        int i = start;
+        int j = end;
+        int base = arr[start];
+        if(start>=end){
+            return;
         }
-        return ret;
+        while(i<j){
+            while(i<j && arr[j]>=base){
+                j--;
+            }
+            while(i<j && arr[i]<=base){
+                i++;
+            }
+            swap(arr,i,j);
+        }
+        swap(arr,start,j);
+        quickSort(arr,start,j-1);
+        quickSort(arr,j+1,end);
+    }
+
+    public static void swap(int[] arr,int i,int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
-//   public static List<List<Integer>> levelSort(TreeNode root){
-//       List<List<Integer>> ret = new ArrayList<>();
-//       if(root == null){
-//           return ret;
-//       }
-//       Queue<TreeNode> queue = new LinkedList<>();
-//       queue.offer(root);
-//       while(!queue.isEmpty()){
-//           List<Integer> level = new ArrayList<Integer>();
-//           int currentLevelSize = queue.size();
-//           for (int i = 1; i <= currentLevelSize; ++i) {
-//               TreeNode node = queue.poll();
-//               level.add(node.val);
-//               if (node.left != null) {
-//                   queue.offer(node.left);
-//               }
-//               if (node.right != null) {
-//                   queue.offer(node.right);
-//               }
-//           }
-//           //最后给二维数组添加level数组，即一整层
-//           ret.add(level);
-//       }
-//       return ret;
-//   }
